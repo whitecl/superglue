@@ -20,21 +20,15 @@ namespace :superglue do
     end
   end
 
-  desc "Verifies webpacker has been installed"
-  task "verify_webpacker" do
-    begin
-      require "webpacker/configuration"
-    rescue LoadError
-      $stderr.puts "Superglue's web install requires webpacker!"
-      $stderr.puts "https://github.com/rails/webpacker#installation"
-      $stderr.puts "Exiting!" && exit!
-    end
-  end
-
   namespace :install do
     desc "Install everything needed for superglue web"
-    task 'web' => ["superglue:verify_webpacker", "webpacker:verify_install", "superglue:verify_react"] do
+    task 'webpacker' => ["superglue:verify_react"] do
       template = File.expand_path("../install/web.rb", __dir__)
+      exec "#{RbConfig.ruby} ./bin/rails app:template LOCATION=#{template}"
+    end
+
+    task 'jsbundling_webpack' => ["superglue:verify_react"] do
+      template = File.expand_path("../install/jsbundling_webpack.rb", __dir__)
       exec "#{RbConfig.ruby} ./bin/rails app:template LOCATION=#{template}"
     end
   end

@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'actionpack', '>= 6.0.0'
   s.add_dependency 'props_template', '>= 0.21.1'
-  s.add_dependency 'webpacker', '>= 3.0'
 
   s.add_development_dependency 'activerecord', '>= 6.0'
   s.add_development_dependency 'rake', ' ~> 12.0'
